@@ -1,15 +1,13 @@
 import React from 'react'
-import { Route, Routes } from "react-router-dom";
-import Home from '../pages/home'
+import User from '../layout/user';
+import Admin from '../layout/admin'
 type Props = {
 
 }
  const Routing = (props: Props) => {
   return (
    <>
-    <Routes>
-        <Route path="/" element={<Home />} />
-    </Routes>
+      <User />
    </>
   )
 }
