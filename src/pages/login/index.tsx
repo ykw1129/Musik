@@ -2,9 +2,9 @@ import React from 'react'
 
 type Props = {}
 
-const index = (props: Props) => {
+function index({}: Props) {
   return (
-    <div>index</div>
+    <div>login</div>
   )
 }
 

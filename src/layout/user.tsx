@@ -1,25 +1,38 @@
-import React,{lazy, Suspense} from 'react'
+import React, { lazy, Suspense } from 'react'
 import Sidebar from './sidebar'
+import { Route, Routes, Outlet } from 'react-router-dom';
 import Loading from '../components/loading';
-import { Route,Routes } from 'react-router-dom';
 type Props = {}
-
 const Home = lazy(() => import('../pages/home'));
-export default function User({}: Props) {
+const Category = lazy(() => import('../pages/category'));
+const Star = lazy(() => import('../pages/star'));
+const Activity = lazy(() => import('../pages/activity'));
+const UserLogin = lazy(() => import('../pages/login'));
+const UserRegsiter = lazy(() => import('../pages/register'));
+const ErrorPage = lazy(() => import('../pages/404'));
+const User = ({ }: Props) => {
   return (
-    <div className='flex flex-row'>
-          <Sidebar />
-          <Routes>
-              <Route path='/' element={lazyComp(Home)} />
-          </Routes>
-    </div>
+    <>
+      <Routes>
+        <Route path='/register' element={<UserRegsiter />} />
+        <Route path='/login' element={<UserLogin />} />
+        <Route path='/' element={<LoggedRoute />} >
+          <Route path='/' element={<Home />} />
+          <Route path='/category' element={<Category />} />
+          <Route path='/star' element={<Star />} />
+          <Route path='/activity' element={<Activity />} />
+          <Route path='*' element={<ErrorPage />} />
+        </Route>
+      </Routes>
+    </>
   )
 }
-
-function lazyComp(Component: React.LazyExoticComponent<() => JSX.Element>) {
-  return (props: any) => (
-    <Suspense fallback={<Loading />}>
-      <Component {...props} />
-    </Suspense>
-  );
-}
+const LoggedRoute = () => (
+  <>
+    <Sidebar />
+      <Suspense fallback={<Loading />}>
+        <Outlet />
+      </Suspense>
+  </>
+)
+export default User
