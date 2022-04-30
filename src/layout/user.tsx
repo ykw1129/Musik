@@ -29,10 +29,13 @@ const User = ({ }: Props) => {
 }
 const LoggedRoute = () => (
   <>
-    <Sidebar />
+  <div className='flex flex-row'>
+      <Sidebar />
       <Suspense fallback={<Loading />}>
         <Outlet />
       </Suspense>
+  </div>
+
   </>
 )
 export default User

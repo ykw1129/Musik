@@ -4,7 +4,14 @@ type Props = {}
 
 const index = (props: Props) => {
   return (
-    <div>index</div>
+    <main>
+        <section className='m-t-10'>
+
+        </section>
+        <section className='m-t-10'>
+
+        </section>
+    </main>
   )
 }
 

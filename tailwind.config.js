@@ -13,6 +13,7 @@ module.exports = {
             'gray-light': '#d3dce6',
             light: '#333',
             black: '#000',
+            active: '#0ad269',
         },
         extend: {
             spacing: {
