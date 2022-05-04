@@ -1,36 +1,36 @@
-import { Req, Res, UserInfo, UpdateUserInfo } from './types'
+import { AccountRequest,BaseResponse} from './types'
 import request from './index'
-export const Login = (data: Req) => {
-    return request<Req, Res>({
+export const Login = (data: AccountRequest) => {
+    return request<AccountRequest, BaseResponse>({
         url: '/user/login',
         method: 'POST',
         data,
     })
 }
 export const Logout = () => {
-    return request<Req, Res>({
+    return request<AccountRequest, BaseResponse>({
         url: '/user/logout',
         method: 'POST',
     })
 }
-export const Register = (data:Req) => {
-    return request<Req, Res>({
+export const Register = (data:AccountRequest) => {
+    return request<AccountRequest, BaseResponse>({
         url: '/user/add',
         method: 'POST',
         data,
     })
 }
-export const getUserInfo = (data:UserInfo) => {
-    return request<UserInfo, Res>({
+/* export const getUserInfo = (data:UserInfo) => {
+    return request<AccountRequest, BaseResponse>({
         url: '/user/index',
         method: 'POST',
         data,
     })
 }
 export const setUserInfo = (data: UpdateUserInfo) => {
-    return request<UpdateUserInfo, Res>({
+    return request<AccountRequest, BaseResponse>({
         url: '/user/update',
         method: 'POST',
         data,
     })
-}
+} */

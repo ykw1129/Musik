@@ -1,13 +1,14 @@
 import Request from '../../utils/request'
 import { AxiosResponse } from 'axios'
 import type { RequestConfig } from '../../utils/request/types'
+import { toast } from 'react-toastify';
 const prefix = '/api/v1'
 export const API_URL = process.env.REACT_APP_API_URL + prefix
 export const APP_RESOURCE_URL = process.env.REACT_APP_RESOURCE_URL
 export interface YWZResponse<T> {
-    statusCode: number
-    desc: string
-    result: T
+    data: T
+    code: number
+    msg: string
 }
 
 // 重写返回类型
@@ -23,6 +24,9 @@ const request = new Request({
         requestInterceptors: config => config,
         // 响应拦截器
         responseInterceptors: (result: AxiosResponse) => {
+            if (result.data.code===200){
+                toast.success(result.data.msg)
+            }
             return result
         },
     },

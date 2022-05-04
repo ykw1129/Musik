@@ -3,10 +3,15 @@ import './App.css';
 import { ErrorBoundary } from './components/error-boundary';
 import { ErrorFallback } from './components/error-fallback';
 import Routing from './router';
+import { StoreProvider } from './context/auth-context';
+import Toast from './components/toast';
 function App() {
   return (
     <ErrorBoundary fallbackRender={ErrorFallback}>
-      <Routing />
+      <StoreProvider>
+        <Toast />
+        <Routing />
+      </StoreProvider>
     </ErrorBoundary>
 
   );

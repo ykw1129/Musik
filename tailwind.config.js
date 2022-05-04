@@ -14,6 +14,8 @@ module.exports = {
             light: '#333',
             black: '#000',
             active: '#0ad269',
+            background: '#f2f2f2',
+            seconds: '#dee5ec',
         },
         extend: {
             spacing: {
@@ -22,6 +24,9 @@ module.exports = {
             },
             borderRadius: {
                 '4xl': '2rem',
+            },
+            boxShadow: {
+                login: '0 6px 17px 0 rgba(0,0,0,.1);',
             },
         },
     },

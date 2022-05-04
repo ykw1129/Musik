@@ -1,11 +1,11 @@
 import Request from '../../utils/request'
 import { AxiosResponse } from 'axios'
 import type { RequestConfig } from '../../utils/request/types'
+import { BannerType } from '../../components/types';
 export const APP_RESOURCE_URL = process.env.REACT_APP_RESOURCE_URL
 export interface YWZResponse<T> {
-    statusCode: number
-    desc: string
-    result: T
+    code: number,
+    banners?:BannerType[]
 }
 
 // 重写返回类型
