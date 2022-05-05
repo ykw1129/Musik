@@ -31,10 +31,10 @@ const Index = () => {
             <h1 className='text-center text-4xl text-active font-bold mb-10'>Musik</h1>
             <ThemeProvider theme={theme}>
               <div className='mb-10'>
-                <TextField color="secondary" name='email' fullWidth label="邮箱" placeholder='E-mail' variant="standard" />
+                <TextField color="secondary" required name='email' fullWidth label="邮箱" placeholder='E-mail' variant="standard" />
               </div>
               <div className='mb-10'>
-                <TextField color="secondary" name='password'  fullWidth label="密码" placeholder='password' variant="standard" />
+                <TextField color="secondary" required name='password'  fullWidth label="密码" placeholder='password' variant="standard" />
               </div>
               <div className='mb-5'>
                 <Button type='submit' className='w-full' color='secondary' variant='outlined'>登录</Button>

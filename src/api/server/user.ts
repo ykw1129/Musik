@@ -1,20 +1,20 @@
-import { AccountRequest,BaseResponse} from './types'
+import { AccountRequest, BaseResponse, RegisterRequest } from './types';
 import request from './index'
-export const Login = (data: AccountRequest) => {
-    return request<AccountRequest, BaseResponse>({
+export const Login = (data: AccountRequest<string>) => {
+    return request<AccountRequest<string>, BaseResponse>({
         url: '/user/login',
         method: 'POST',
         data,
     })
 }
 export const Logout = () => {
-    return request<AccountRequest, BaseResponse>({
+    return request<AccountRequest<string>, BaseResponse>({
         url: '/user/logout',
         method: 'POST',
     })
 }
-export const Register = (data:AccountRequest) => {
-    return request<AccountRequest, BaseResponse>({
+export const Register = (data: RegisterRequest<string>) => {
+    return request<RegisterRequest<string>, BaseResponse>({
         url: '/user/add',
         method: 'POST',
         data,
