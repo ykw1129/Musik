@@ -3,5 +3,4 @@ export const useMount = (callback: () => void) => {
     return useEffect(() => {
         callback()
     }, [callback])
-
 }

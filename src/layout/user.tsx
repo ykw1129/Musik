@@ -3,7 +3,6 @@ import Sidebar from './sidebar'
 import { Route, Routes, Outlet } from 'react-router-dom';
 import Loading from '../components/loading';
 import Footer from '../layout/footer'
-type Props = {}
 const Home = lazy(() => import('../pages/home'));
 const Category = lazy(() => import('../pages/category'));
 const Star = lazy(() => import('../pages/star'));
@@ -12,7 +11,7 @@ const UserLogin = lazy(() => import('../pages/login'));
 const UserRegsiter = lazy(() => import('../pages/register'));
 const ErrorPage = lazy(() => import('../pages/404'));
 const List = lazy(() => import('../pages/list'));
-const User = ({ }: Props) => {
+const User = () => {
   return (
     <>
       <Routes>
