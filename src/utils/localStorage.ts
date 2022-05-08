@@ -13,7 +13,7 @@ export const localGet = (key:string) => {
 }
 
 
-export const localSet = (key:string, value:string, expirationInMin = 30)  => {
+export const localSet = (key:string, value:any, expirationInMin = 30)  => {
     let expirationDate = new Date(new Date().getTime() + (60000 * expirationInMin))
     let newValue = {
         value,

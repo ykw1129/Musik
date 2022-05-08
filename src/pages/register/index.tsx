@@ -3,17 +3,25 @@ import React, { ChangeEvent, FormEvent, InputHTMLAttributes } from 'react'
 import { theme } from '../../theme'
 import { useContext } from 'react';
 import { Store } from '../../context/auth-context';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Register } from '../../api/server/user';
 import { useForm } from "react-hook-form";
+import { localSet } from '../../utils/localStorage';
 
 const Index = () => {
-  const { register, handleSubmit, watch, formState: { errors },setError,clearErrors } = useForm();
+  const navigate = useNavigate()
+  const { register, handleSubmit, watch, formState: { errors }, setError, clearErrors } = useForm();
   const onSubmit = (data: any) => {
     delete data.password_confirm
-    console.log(data)
-    Register(data).then(data=>console.log(data))
+    Register(data).then(data => {
+      if (data.code === 0) {
+        navigate('/login')
+        toast.success(data?.msg || '注册成功')
+      } else {
+        toast.error(data?.msg || '注册失败')
+      }
+    })
   }
   const rules = {
     nickName: register('nickName', { required: "用户名是必填的", maxLength: { value: 20, message: '用户名不能超过20个字符' } }),
@@ -21,8 +29,8 @@ const Index = () => {
     password: register('password', { required: "密码是必填的", maxLength: { value: 20, message: '密码不能超过20个字符' } }),
     passwordConfirm: register('password_confirm', { required: "确认密码是必填的", maxLength: { value: 20, message: '确认密码不能超过20个字符' }, }),
   }
-  const handleConfirmChange = (name:string) =>{
-    return (evt: ChangeEvent<HTMLInputElement>)=>{
+  const handleConfirmChange = (name: string) => {
+    return (evt: ChangeEvent<HTMLInputElement>) => {
       if (evt.target.value.trim() !== watch(name).trim()) {
         setError("password_confirm", { type: "confirm", message: '两次密码不相同' })
       } else {
@@ -44,10 +52,10 @@ const Index = () => {
                 <TextField type='email' helperText={errors.email?.message}  {...rules.email} name='email' placeholder='E-mail' color="secondary" fullWidth label="邮箱" variant="standard" />
               </div>
               <div className='mb-10'>
-                <TextField type='password' helperText={errors.password?.message}   {...rules.password} name='password' placeholder='Password' color="secondary" fullWidth label="密码" variant="standard" onChange={handleConfirmChange('password_confirm')}/>
+                <TextField type='password' helperText={errors.password?.message}   {...rules.password} name='password' placeholder='Password' color="secondary" fullWidth label="密码" variant="standard" onChange={handleConfirmChange('password_confirm')} />
               </div>
               <div className='mb-10'>
-                <TextField type='password' helperText={errors.password_confirm?.message}   {...rules.passwordConfirm} name='password_confirm' placeholder='Password again' color="secondary" fullWidth label="再次输入密码" variant="standard" onChange={handleConfirmChange('password')}  />
+                <TextField type='password' helperText={errors.password_confirm?.message}   {...rules.passwordConfirm} name='password_confirm' placeholder='Password again' color="secondary" fullWidth label="再次输入密码" variant="standard" onChange={handleConfirmChange('password')} />
               </div>
               <div className='mb-5'>
                 <Button type='submit' className='w-full' color='secondary' variant='outlined'>注册</Button>
@@ -66,9 +74,3 @@ const Index = () => {
 }
 
 export default Index
-
-const HelpText = ({ message }: { message: string }) => {
-  return (<>
-    <p>{message}</p>
-  </>)
-}

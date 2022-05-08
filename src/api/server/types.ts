@@ -3,7 +3,10 @@ export interface AccountRequest<T> {
     password: T
 }
 export interface BaseResponse {
-    data: {},
+    [property: string]: any;
+    data: {
+        [property: string]: any;
+    },
     code: number,
     msg: string
 }
