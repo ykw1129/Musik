@@ -7,11 +7,11 @@ type LoadingProps = {
 const Loading = ({ children }: LoadingProps) => {
     return (
         <>
-            <div className='justify-center items-center w-full h-full backdrop-brightness-75'>
-                <div className='p-10'>
+            <div className='flex justify-center items-center w-full h-full backdrop-brightness-75'>
+                <div className='p-10 justify-center items-center'>
                     <Loader width={125} height={125} />
+                    {children}
                 </div>
-                {children}
             </div>
         </>
     )

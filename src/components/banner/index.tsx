@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-import { getBanner } from '../../api/resource/home';
+import { getBanner } from '../../api/resource/get';
 import { BannerType } from '../../api/resource/types';
 import { Link } from 'react-router-dom';
 const Index = () => {

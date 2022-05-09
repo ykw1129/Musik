@@ -14,8 +14,11 @@ module.exports = {
             light: '#333',
             black: '#000',
             active: '#0ad269',
-            background: '#f2f2f2',
+            background: '#fbfbfb',
             seconds: '#dee5ec',
+            tag: '#ececec',
+            line: '#e4e4e4',
+            banner: '#f2f2f2',
         },
         extend: {
             spacing: {

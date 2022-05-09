@@ -10,7 +10,8 @@ const Activity = lazy(() => import('../pages/activity'));
 const UserLogin = lazy(() => import('../pages/login'));
 const UserRegsiter = lazy(() => import('../pages/register'));
 const ErrorPage = lazy(() => import('../pages/404'));
-const List = lazy(() => import('../pages/list'));
+const PlayList = lazy(() => import('../pages/category/play-list'));
+const SongList = lazy(() => import('../pages/category/song-list'))
 const User = () => {
   return (
     <>
@@ -24,7 +25,8 @@ const User = () => {
           <Route index element={<Home />} />
           <Route path='/category'>
             <Route index element={<Category />} />
-            <Route path=':id' element={<List />} />
+            <Route path='playlist/:id' element={< PlayList />} />
+            <Route path='songlist/:id' element={<SongList />} />
           </Route>
           <Route path='/star' element={<Star />} />
           <Route path='/activity' element={<Activity />} />
@@ -38,7 +40,7 @@ const LoggedRoute = () => (
   <>
     <div className='flex flex-row'>
       <Sidebar />
-      <main className='flex-1'>
+      <main className='flex-col flex flex-1 justify-center items-center min-h-screen bg-background'>
         <Suspense fallback={<Loading />}>
           <Outlet />
         </Suspense>

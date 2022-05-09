@@ -41,7 +41,7 @@ const links: NavLinkType[] = [
 ]
 const index = () => {
   return (
-    <header className='w-60 h-screen bg-black flex-shrink-0'>
+    <header className='w-60 bg-black min-h-screen flex-shrink-0'>
       <div className='flex items-center justify-between px-8 py-2'>
         <h1 className='text-2xl font-bold text-[#fff]'>Musik</h1>
         <SearchIcon sx={{ fontSize: 25 }} className='text-gray-light' />

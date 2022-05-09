@@ -1,6 +1,7 @@
 import Request from '../../utils/request'
-import { AxiosResponse } from 'axios'
+import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import type { RequestConfig } from '../../utils/request/types'
+import { localGet, localSet } from '../../utils/localStorage';
 export const APP_RESOURCE_URL = process.env.REACT_APP_RESOURCE_URL
 export interface YWZResponse<T> {
     code: number,
@@ -17,7 +18,13 @@ const request = new Request({
     timeout: 1000 * 60 * 5,
     interceptors: {
         // 请求拦截器
-        requestInterceptors: config => config,
+        requestInterceptors: (config:AxiosRequestConfig<any>) => {
+          if(localGet('cookie')&&config.headers){
+                console.log(config)
+          }else{
+          }
+           return config
+        },
         // 响应拦截器
         responseInterceptors: (result: AxiosResponse) => {
             return result

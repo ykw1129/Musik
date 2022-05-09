@@ -13,7 +13,7 @@ type Props = {}
 
 function Index({ }: Props) {
   return (
-    <footer className='bg-background'>
+    <footer className='bg-background mt-auto w-full'>
       <div className='flex flex-row box-border px-10 py-5 justify-between items-center'>
         <small>©<b>Musik Corporation</b></small>
         <ul className='flex'>
