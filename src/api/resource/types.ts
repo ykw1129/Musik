@@ -66,9 +66,9 @@ export enum categories {
 export type AuthResponse = {
     loginType: number
     code: number
-    account:AccountType
-    token:string
-    [other:string]:any
+    account: AccountType
+    token: string
+    [other: string]: any
 }
 export type AccountType = {
     id: number
@@ -127,4 +127,40 @@ export type CreatorType = {
     description: string
     signature: string
     authority: number
+}
+export type PlayListType = {
+    name: string
+    id: number
+    trackNumberUpdateTime: number
+    status: number
+    userId: number
+    createTime: number
+    updateTime: number
+    subscribedCount: number
+    trackCount: number
+    cloudTrackCount: number
+    coverImgUrl: string
+    coverImgId: number
+    description: string
+    tags:string[]
+    playCount: number
+    trackUpdateTime: number
+    specialType: number
+    totalDuration: number
+    creator: CreatorType
+    subscribed: null|any
+    commentThreadId: string
+    newImported: false
+    adType: number
+    highQuality: true
+    privacy: number
+    ordered: true
+    anonimous: boolean
+    coverStatus: number
+    recommendInfo: null|string
+    shareCount: number
+    coverImgId_str: number
+    commentCount: number
+    copywriter: string
+    tag: string
 }

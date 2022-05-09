@@ -4,12 +4,15 @@ import { localGet, localSet } from '../utils/localStorage';
 
 export const useAuth = (callback:()=>void) => {
     useEffect(() => {
-        if (localGet('cookie')) {
+        if (localGet('cookie') && localGet('cookie')!=='undefined') {
             callback()
         } else {
             defaultLogin().then(data => {
-                localSet('cookie', encodeURIComponent(data.cookie))
-                callback()
+                if(data.code===200){
+                    localSet('cookie', encodeURIComponent(data.cookie))
+                    callback()
+                }
+
             })
         }
     }, [])

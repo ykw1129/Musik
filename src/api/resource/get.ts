@@ -1,6 +1,6 @@
 import { localGet } from '../../utils/localStorage';
 import resource from './index'
-import { BannerType, PlayListTagType, categories, Tag, RecommendType } from './types';
+import { BannerType, PlayListTagType, categories, Tag, RecommendType, PlayListType } from './types';
 /**
  * @description: 获取Banner
  * @param {BannerType} data 0:pc 1:android 2:iphone 3:ipad
@@ -44,11 +44,39 @@ export const getHotTags = () => {
  */
 
 export const getRecommend = () => {
-    return resource <{ cookie: any }, { code: string, recommend: RecommendType }> ({
+    return resource<{ cookie: any }, { code: string, recommend: RecommendType }>({
         url: '/recommend/resource',
         method: 'GET',
         data: {
             cookie: localGet('cookie')
         }
     })
-    }
+}
+type HighQualityPlayListRequestType = {
+    cat?: string
+    limit?: number
+    before?: number
+}
+type HighQualityPlayListResponseType = {
+    playlists:PlayListType[]
+    code:number
+    more:boolean
+    lasttime:number
+    total:number
+}
+/**
+ * @description:  获取标签对应的歌单列表
+ * @param {HighQualityPlayListRequestType} param1
+ * @return {*}
+ */
+export const getHighQualityPlayList = ({ cat, limit=20, before }: HighQualityPlayListRequestType) => {
+    return resource<HighQualityPlayListRequestType, HighQualityPlayListResponseType>({
+        url:'/top/playlist/highquality',
+        method:'GET',
+        data:{
+            cat,
+            limit,
+            before
+        }
+    })
+}
