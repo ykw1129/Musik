@@ -10,8 +10,8 @@ const Activity = lazy(() => import('../pages/activity'));
 const UserLogin = lazy(() => import('../pages/login'));
 const UserRegsiter = lazy(() => import('../pages/register'));
 const ErrorPage = lazy(() => import('../pages/404'));
-const PlayList = lazy(() => import('../pages/category/play-list'));
-const SongList = lazy(() => import('../pages/category/song-list'))
+const PlayList = lazy(() => import('../pages/playlist'));
+const SongList = lazy(() => import('../pages/songlist'))
 const User = () => {
   return (
     <>
@@ -25,7 +25,7 @@ const User = () => {
           <Route index element={<Home />} />
           <Route path='/category'>
             <Route index element={<Category />} />
-            <Route path='playlist/:id' element={< PlayList />} />
+            <Route path='playlist/:name' element={< PlayList />} />
             <Route path='songlist/:id' element={<SongList />} />
           </Route>
           <Route path='/star' element={<Star />} />

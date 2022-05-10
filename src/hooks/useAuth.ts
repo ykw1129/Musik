@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { defaultLogin } from "../api/resource/auth"
 import { localGet, localSet } from '../utils/localStorage';
 
-export const useAuth = (callback:()=>void) => {
+export const useAuth = (callback:()=>void,array?:any[]) => {
     useEffect(() => {
         if (localGet('cookie') && localGet('cookie')!=='undefined') {
             callback()
@@ -12,10 +12,9 @@ export const useAuth = (callback:()=>void) => {
                     localSet('cookie', encodeURIComponent(data.cookie))
                     callback()
                 }
-
             })
         }
-    }, [])
+    }, array||[])
 
 
 }

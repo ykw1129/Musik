@@ -23,7 +23,7 @@ function Index() {
             <ul>
                 {
                     recommends?.map((recommend:RecommendType)=>
-                        <li key={recommend.id} className="w-1/4 pr-4 pb-3 float-left">
+                        <li key={recommend.id} className="w-1/4 pr-4 pb-3 inline-block">
                             <Link to={`/category/songlist/${recommend.id}`} className="group">
                                 <div className='relative group'>
                                     <Mask></Mask>

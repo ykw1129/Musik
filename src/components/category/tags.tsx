@@ -24,7 +24,7 @@ function Tags({}: Props) {
           <ul>
               {tags?.map((tag: Tag) =>
                   <li className='w-1/3 pr-4 pb-3 float-left' key={tag.id}>
-                      <Link className='h-16 rounded px-3 bg-tag block hover:bg-seconds' to={`/category/playlist/${tag.id}`}>
+                      <Link className='h-16 rounded px-3 bg-tag block hover:bg-seconds' to={`/category/playlist/${tag.name.split('/')[0]}`}>
                           <span className='block truncate leading-[4rem] text-center'>{tag.name}</span>
                       </Link>
                   </li>

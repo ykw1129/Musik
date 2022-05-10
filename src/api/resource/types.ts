@@ -128,6 +128,19 @@ export type CreatorType = {
     signature: string
     authority: number
 }
+export type HighQualityPlayListRequestType = {
+    cat?: string
+    limit?: number
+    before?: number
+    order?: 'new' | 'hot'
+}
+export type HighQualityPlayListResponseType = {
+    playlists: PlayListType[]
+    code: number
+    more: boolean
+    lasttime: number
+    total: number
+}
 export type PlayListType = {
     name: string
     id: number
@@ -163,4 +176,11 @@ export type PlayListType = {
     commentCount: number
     copywriter: string
     tag: string
+}
+export type PlayListResponseType = {
+    code: 200,
+    relatedVideos: any,
+    playlist: PlayListType
+    sharedPrivilege: any,
+    resEntrance: any
 }

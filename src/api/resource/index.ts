@@ -20,7 +20,7 @@ const request = new Request({
         // 请求拦截器
         requestInterceptors: (config:AxiosRequestConfig<any>) => {
           if(localGet('cookie')&&config.headers){
-                console.log(config)
+
           }else{
           }
            return config

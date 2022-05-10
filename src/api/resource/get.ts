@@ -1,6 +1,14 @@
+/*
+ * @Author: Killian killian@8bsolutions.cn
+ * @Date: 2022-05-10 08:28:14
+ * @LastEditors: Killian killian@8bsolutions.cn
+ * @LastEditTime: 2022-05-10 11:05:56
+ * @FilePath: \musik\src\api\resource\get.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { localGet } from '../../utils/localStorage';
 import resource from './index'
-import { BannerType, PlayListTagType, categories, Tag, RecommendType, PlayListType } from './types';
+import { BannerType, PlayListTagType, categories, Tag, RecommendType, PlayListType, PlayListResponseType, HighQualityPlayListRequestType, HighQualityPlayListResponseType } from './types';
 /**
  * @description: 获取Banner
  * @param {BannerType} data 0:pc 1:android 2:iphone 3:ipad
@@ -47,29 +55,17 @@ export const getRecommend = () => {
     return resource<{ cookie: any }, { code: string, recommend: RecommendType }>({
         url: '/recommend/resource',
         method: 'GET',
-        data: {
-            cookie: localGet('cookie')
+        data:{
+            cookie:localGet('cookie')
         }
     })
-}
-type HighQualityPlayListRequestType = {
-    cat?: string
-    limit?: number
-    before?: number
-}
-type HighQualityPlayListResponseType = {
-    playlists:PlayListType[]
-    code:number
-    more:boolean
-    lasttime:number
-    total:number
 }
 /**
  * @description:  获取标签对应的歌单列表
  * @param {HighQualityPlayListRequestType} param1
  * @return {*}
  */
-export const getHighQualityPlayList = ({ cat, limit=20, before }: HighQualityPlayListRequestType) => {
+export const getHighQualityPlayList = ({ cat, before, limit = 20,order='hot' }: HighQualityPlayListRequestType) => {
     return resource<HighQualityPlayListRequestType, HighQualityPlayListResponseType>({
         url:'/top/playlist/highquality',
         method:'GET',
@@ -77,6 +73,36 @@ export const getHighQualityPlayList = ({ cat, limit=20, before }: HighQualityPla
             cat,
             limit,
             before
+        }
+    })
+}
+/**
+ * @description: 获取歌单详情
+ * @param {object} param1
+ * @return {*}
+ */
+export const getPlaylistDetail = ({id }:{id:string}) =>{
+    return resource<{ id: string }, PlayListResponseType>({
+        url: '/playlist/detail',
+        method: 'GET',
+        data: {
+            id
+        }
+    })
+}
+/**
+ * @description: 获取歌单所有歌曲
+ * @param {object} param1
+ * @return {*}
+ */
+export const getAllSongFormPlayList = ({id,limit=20,offset=0 }:{id:string,limit?:number,offset?:number}) =>{
+    return resource<{ id: string, limit?: number, offset?: number }, PlayListResponseType>({
+        url: '/playlist/detail',
+        method: 'GET',
+        data: {
+            id,
+            limit,
+            offset
         }
     })
 }
