@@ -1,8 +1,8 @@
 /*
  * @Author: Killian killian@8bsolutions.cn
  * @Date: 2022-05-10 08:28:14
- * @LastEditors: Killian killian@8bsolutions.cn
- * @LastEditTime: 2022-05-10 11:05:56
+ * @LastEditors: ykw 1794093413@qq.com
+ * @LastEditTime: 2022-05-11 18:42:35
  * @FilePath: \musik\src\api\resource\get.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -82,11 +82,12 @@ export const getHighQualityPlayList = ({ cat, before, limit = 20,order='hot' }: 
  * @return {*}
  */
 export const getPlaylistDetail = ({id }:{id:string}) =>{
-    return resource<{ id: string }, PlayListResponseType>({
+    return resource<{ id: string,cookie:any }, PlayListResponseType>({
         url: '/playlist/detail',
         method: 'GET',
         data: {
-            id
+            id,
+            cookie:localGet('cookie')
         }
     })
 }

@@ -18,30 +18,30 @@ const links: NavLinkType[] = [
     path: '/',
     ActiveIcon: (<HomeIcon sx={ICON_STYLE} className='text-active' />),
     NavIcon: (<HomeOutlinedIcon sx={ICON_STYLE} className='text-[#999]' />),
-    name:'Home'
+    name:'主页'
   },
   {
     path: '/category',
     ActiveIcon: (<BorderAllIcon sx={ICON_STYLE} className='text-active' />),
     NavIcon: (<BorderAllOutlinedIcon sx={ICON_STYLE} className='text-[#999]' />),
-    name: 'Category'
+    name: '分类'
   },
   {
     path: '/star',
     ActiveIcon: (<GradeIcon sx={ICON_STYLE} className='text-active' />),
     NavIcon: (<GradeOutlinedIcon sx={ICON_STYLE} className='text-[#999]' />),
-    name: 'Star'
+    name: '收藏'
   },
   {
     path: '/activity',
     ActiveIcon: (<LocalActivityIcon sx={ICON_STYLE} className='text-active' />),
     NavIcon: (<LocalActivityOutlinedIcon sx={ICON_STYLE} className='text-[#999]' />),
-    name: 'Activity'
+    name: '专题'
   }
 ]
-const index = () => {
+const Sidebar = () => {
   return (
-    <header className='w-60 bg-black min-h-screen flex-shrink-0'>
+    <header className='w-80 bg-black min-h-screen flex-shrink-0'>
       <div className='flex items-center justify-between px-8 py-2'>
         <h1 className='text-2xl font-bold text-[#fff]'>Musik</h1>
         <SearchIcon sx={{ fontSize: 25 }} className='text-gray-light' />
@@ -60,7 +60,7 @@ const index = () => {
     </header>
   )
 }
-export default index
+export default Sidebar
 
 type NavLinkType = {
   path: string

@@ -1,8 +1,9 @@
 import React, { lazy, Suspense } from 'react'
-import Sidebar from './sidebar'
+import Sidebar from './user/sidebar'
+import AdminSidebar from './admin/sidebar';
 import { Route, Routes, Outlet } from 'react-router-dom';
 import Loading from '../components/loading';
-import Footer from '../layout/footer'
+import Footer from './footer'
 const Home = lazy(() => import('../pages/home'));
 const Category = lazy(() => import('../pages/category'));
 const Star = lazy(() => import('../pages/star'));
@@ -12,11 +13,18 @@ const UserRegsiter = lazy(() => import('../pages/register'));
 const ErrorPage = lazy(() => import('../pages/404'));
 const PlayList = lazy(() => import('../pages/playlist'));
 const SongList = lazy(() => import('../pages/songlist'))
+const Admin = lazy(() => import('../pages/admin'))
+const UserManage = lazy(() => import('../pages/admin/user-manage'))
 const User = () => {
   return (
     <>
       <Routes>
-
+        <Route path='/' element ={<AdminNoLoggedRoute />} >
+          <Route path='admin' element={<Admin />} />
+        </Route>
+        <Route path='/' element={<AdminLoggedRoute />} >
+          <Route path='user' element={<UserManage />} />
+        </Route>
         <Route path='/' element ={<NoLoggedRoute />} >
           <Route path='register' element={<UserRegsiter />} />
           <Route path='login' element={<UserLogin />} />
@@ -50,6 +58,31 @@ const LoggedRoute = () => (
   </>
 )
 const NoLoggedRoute = () =>(
+  <>
+    <div className='flex flex-col min-h-screen'>
+      <main className='flex-1 flex bg-gradient-to-t from-[#fff1eb] to-[#ace0f9]'>
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
+      </main>
+      <Footer />
+    </div>
+  </>
+)
+const AdminLoggedRoute = () =>(
+  <>
+    <div className='flex flex-row'>
+      <AdminSidebar />
+      <main className='flex-col flex flex-1 justify-center items-center min-h-screen bg-background'>
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
+        <Footer />
+      </main>
+    </div>
+  </>
+)
+const AdminNoLoggedRoute = () => (
   <>
     <div className='flex flex-col min-h-screen'>
       <main className='flex-1 flex bg-gradient-to-t from-[#fff1eb] to-[#ace0f9]'>

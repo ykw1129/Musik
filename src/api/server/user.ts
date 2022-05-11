@@ -20,6 +20,9 @@ export const Register = (data: RegisterRequest<string>) => {
         data,
     })
 }
+export const AdminLogin = () =>{
+
+}
 /* export const getUserInfo = (data:UserInfo) => {
     return request<AccountRequest, BaseResponse>({
         url: '/user/index',
