@@ -2,7 +2,7 @@ import React from 'react'
 import AdminHeader from '../../components/admin-header'
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
 import dayjs from 'dayjs';
-import { Button } from '@mui/material';
+import { Button, Pagination } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { StyledDataGrid } from './index';
@@ -47,7 +47,7 @@ function UserManage() {
     <section className='lg:w-[1200px] m-auto'>
       <div className='pt-20'>
         <AdminHeader name='用户' />
-        <div className='mt-10'>
+        <div className='my-10'>
           <StyledDataGrid
 
             autoHeight
@@ -56,6 +56,9 @@ function UserManage() {
             pageSize={8}
             disableSelectionOnClick={true}
           />
+        </div>
+        <div className='flex justify-center'>
+          <Pagination count={10} />
         </div>
       </div>
     </section>
