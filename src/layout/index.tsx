@@ -15,6 +15,9 @@ const PlayList = lazy(() => import('../pages/playlist'));
 const SongList = lazy(() => import('../pages/songlist'))
 const Admin = lazy(() => import('../pages/admin'))
 const UserManage = lazy(() => import('../pages/admin/user-manage'))
+const DynamicManage = lazy(() => import('../pages/admin/dynamic-manage'))
+const FileManage = lazy(() => import('../pages/admin/file-manage'))
+const CommentManage = lazy(() => import('../pages/admin/comment-manage'))
 const User = () => {
   return (
     <>
@@ -24,6 +27,9 @@ const User = () => {
         </Route>
         <Route path='/' element={<AdminLoggedRoute />} >
           <Route path='user' element={<UserManage />} />
+          <Route path='file' element={<FileManage />} />
+          <Route path='dynamic' element={<DynamicManage />} />
+          <Route path='comment' element={<CommentManage />} />
         </Route>
         <Route path='/' element ={<NoLoggedRoute />} >
           <Route path='register' element={<UserRegsiter />} />

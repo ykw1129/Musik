@@ -1,4 +1,4 @@
-import { Button, TextField, ThemeProvider } from '@mui/material'
+import { Button, styled, TextField, ThemeProvider } from '@mui/material'
 import React, { FormEvent } from 'react'
 import { theme } from '../../theme'
 import { useContext } from 'react';
@@ -9,6 +9,13 @@ import { useMount } from '../../hooks/index';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { localSet } from '../../utils/localStorage';
+import { DataGrid } from '@mui/x-data-grid';
+export const StyledDataGrid = styled(DataGrid)`
+  &.MuiDataGrid-root .MuiDataGrid-columnHeader:focus,
+  &.MuiDataGrid-root .MuiDataGrid-cell:focus {
+    outline: none;
+  }
+`;
 const Index = () => {
   const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm();
