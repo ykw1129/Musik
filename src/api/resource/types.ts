@@ -178,9 +178,67 @@ export type PlayListType = {
     tag: string
 }
 export type PlayListResponseType = {
-    code: 200,
-    relatedVideos: any,
+    code: 200
+    relatedVideos: any
     playlist: PlayListType
-    sharedPrivilege: any,
+    sharedPrivilege: any
     resEntrance: any
+}
+export type ArType = {
+    id: number
+    name: string
+    tns: number[]
+    alias: number[]
+}
+export type AlType = {
+    id: number
+    name: 'string'
+    picUrl: 'string'
+    tns: unknown[]
+    pic_str: unknown
+    pic: number
+}
+export type TracksType = {
+    name: string
+    id: number
+    pst: number
+    t: number
+    ar: ArType[]
+    alia: unknown[]
+    pop: number
+    st: number
+    rt: unknown
+    fee: number
+    v: number
+    crbt: unknown
+    cf: unknown
+    al: AlType
+    dt: number
+    hr: unknown
+    a: unknown
+    cd: number
+    no: number
+    rtUrl: unknown
+    ftype: number
+    rtUrls: unknown[]
+    djId: number
+    copyright: number
+    s_id: number
+    mark: number
+    originCoverType: number
+    originSongSimpleData: unknown
+    tagPicList: unknown
+    resourceState: boolean
+    version: number
+    songJumpInfo: unknown
+    entertainmentTags: unknown
+    single: number
+    noCopyrightRcmd: unknown
+    rurl: unknown
+    rtype: number
+    mst: number
+    cp: number
+    mv: number
+    publishTime: number
+
 }

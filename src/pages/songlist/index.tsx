@@ -3,13 +3,14 @@ import { getPlaylistDetail } from '../../api/resource/get';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../hooks/useAuth';
-import { PlayListType } from '../../api/resource/types';
+import { PlayListType, TracksType } from '../../api/resource/types';
 import dayjs from 'dayjs';
 import List from './list';
 
 
 
 function SongList() {
+  const [songs, setSongs] = useState<TracksType[] | null>()
   const [playlist, setPlaylist] = useState<PlayListType | null>()
   const { id } = useParams()
   const fetch = () => {
@@ -17,6 +18,7 @@ function SongList() {
       getPlaylistDetail({ id }).then(data => {
         if (data.code === 200) {
           setPlaylist(data.playlist)
+          setSongs(data.playlist.tracks)
         } else {
           toast.error('获取歌曲列表失败')
         }
@@ -61,7 +63,7 @@ function SongList() {
         </div>
       </div>
       <div className='lg:w-[964px] m-auto '>
-        <List />
+        {songs ? <List songs={songs} />:''}
       </div>
     </section>
   )
