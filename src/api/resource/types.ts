@@ -155,13 +155,13 @@ export type PlayListType = {
     coverImgUrl: string
     coverImgId: number
     description: string
-    tags:string[]
+    tags: string[]
     playCount: number
     trackUpdateTime: number
     specialType: number
     totalDuration: number
     creator: CreatorType
-    subscribed: null|any
+    subscribed: null | any
     commentThreadId: string
     newImported: false
     adType: number
@@ -170,7 +170,7 @@ export type PlayListType = {
     ordered: true
     anonimous: boolean
     coverStatus: number
-    recommendInfo: null|string
+    recommendInfo: null | string
     shareCount: number
     coverImgId_str: number
     commentCount: number
@@ -241,4 +241,24 @@ export type TracksType = {
     mv: number
     publishTime: number
 
+}
+export type Song = {
+    id: number,
+    url: string,
+    br: number,
+    size: number,
+    md5: string,
+    code: number,
+    expi: number,
+    type: string,
+    gain: number,
+    fee: number,
+    uf: string,
+    payed: number,
+    flag: number,
+    canExtend: boolean,
+    freeTrialInfo: any,
+    level: string,
+    encodeType: string,
+    urlSource: number
 }

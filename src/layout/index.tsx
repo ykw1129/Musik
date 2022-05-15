@@ -4,6 +4,7 @@ import AdminSidebar from './admin/sidebar';
 import { Route, Routes, Outlet } from 'react-router-dom';
 import Loading from '../components/loading';
 import Footer from './footer'
+import Player from '../components/player';
 const Home = lazy(() => import('../pages/home'));
 const Category = lazy(() => import('../pages/category'));
 const Star = lazy(() => import('../pages/star'));
@@ -60,6 +61,7 @@ const LoggedRoute = () => (
         </Suspense>
         <Footer />
       </main>
+      <Player />
     </div>
   </>
 )

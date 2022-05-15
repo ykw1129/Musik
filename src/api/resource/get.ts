@@ -8,7 +8,7 @@
  */
 import { localGet } from '../../utils/localStorage';
 import resource from './index'
-import { BannerType, PlayListTagType, categories, Tag, RecommendType, PlayListType, PlayListResponseType, HighQualityPlayListRequestType, HighQualityPlayListResponseType } from './types';
+import { BannerType, PlayListTagType, categories, Tag, RecommendType, PlayListType, PlayListResponseType, HighQualityPlayListRequestType, HighQualityPlayListResponseType, Song } from './types';
 /**
  * @description: 获取Banner
  * @param {BannerType} data 0:pc 1:android 2:iphone 3:ipad
@@ -104,6 +104,16 @@ export const getAllSongFormPlayList = ({id,limit=20,offset=0 }:{id:string,limit?
             id,
             limit,
             offset
+        }
+    })
+}
+
+export const getSongUrl = ({id}:{id:string}) =>{
+    return resource<{ id: string}, Song>({
+        url: '/song/url',
+        method: 'GET',
+        data: {
+            id,
         }
     })
 }
