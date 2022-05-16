@@ -248,4 +248,6 @@ export type Song = {
     urlSource: number
     ar: ArType[]
     al: AlType|undefined
+    lyric?:string
+    tlyric?:string
 }
