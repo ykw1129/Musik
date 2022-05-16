@@ -19,6 +19,7 @@ const UserManage = lazy(() => import('../pages/admin/user-manage'))
 const DynamicManage = lazy(() => import('../pages/admin/dynamic-manage'))
 const FileManage = lazy(() => import('../pages/admin/file-manage'))
 const CommentManage = lazy(() => import('../pages/admin/comment-manage'))
+const Account = lazy(() => import('../pages/account'))
 const User = () => {
   return (
     <>
@@ -38,6 +39,7 @@ const User = () => {
         </Route>
         <Route path='/' element={<LoggedRoute />} >
           <Route index element={<Home />} />
+          <Route path='/account' element={<Account />} />
           <Route path='/category'>
             <Route index element={<Category />} />
             <Route path='playlist/:name' element={< PlayList />} />

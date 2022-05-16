@@ -10,6 +10,7 @@ import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined';
 import React from 'react'
 import { NavLink } from 'react-router-dom';
+import { localGet } from '../../utils/localStorage';
 const ICON_STYLE = {
   fontSize: 24, marginRight: '10px'
 }
@@ -40,6 +41,7 @@ const links: NavLinkType[] = [
   }
 ]
 const Sidebar = () => {
+  const isLogin = ()=> localGet('token')
   return (
     <header className='w-80 bg-black min-h-screen flex-shrink-0'>
       <div className='flex items-center justify-between px-8 py-2'>
@@ -49,8 +51,10 @@ const Sidebar = () => {
       <section className='px-8 py-2'>
         <div id='user-info' className='border-y border-[hsla(0,0%,84.7%,.13)]'>
           <div className='flex items-center cursor-pointer px-2 py-4'>
-            <AccountCircleIcon sx={ICON_STYLE} className='text-[#999]' />
-            <span className='text-[#999] text-base max-w-xs  ml-1'>User</span>
+            <NavLink to="/login">
+              <AccountCircleIcon sx={ICON_STYLE} className='text-[#999]' />
+              <span className='text-[#999] text-base max-w-xs  ml-1'>{isLogin()?localGet('nickName'):'User'}</span>
+            </NavLink>
           </div>
         </div>
         <div id='user-menu' className='mt-10'>

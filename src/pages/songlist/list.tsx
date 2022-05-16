@@ -6,10 +6,31 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import StarBorder from '@mui/icons-material/StarBorder';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import { TracksType } from '../../api/resource/types';
+import { TracksType, Song } from '../../api/resource/types';
+import { getSongUrl } from '../../api/resource/get';
+import { useContext } from 'react';
+import { Store } from '../../context/auth-context';
 
 export default function SongList({ songs }: { songs: TracksType[] }) {
+   const value = useContext(Store)
     const setFlex = (basis: string) => ({ flex: '0 1 auto', flexBasis: basis })
+    const onPlayer = (id:number) =>{
+        return ()=>{
+            getSongUrl({id}).then(data=>{
+                if(data.data){
+                    let currentSong = songs.find((song:TracksType)=>song.id===id)
+                    let song:Song = {
+                        id:data.data[0].id,
+                        url:data.data[0].url,
+                        urlSource:data.data[0].urlSource,
+                        ar:currentSong?.ar||[],
+                        al:currentSong?.al
+                    }
+                    value?.dispatch({ type: 'SWITCH_SONG', song})
+                }
+            })
+        }
+    }
     return (
         <List
             component="nav"
@@ -21,7 +42,7 @@ export default function SongList({ songs }: { songs: TracksType[] }) {
             }
         >
             {songs.map((song: TracksType, index) =>
-                <ListItemButton key={song.id}>
+                <ListItemButton key={song.id} onClick={onPlayer(song.id)}>
                     <ListItemText sx={setFlex('20px')} secondary={index+1} />
                     <ListItemIcon>
                         <MusicNoteIcon />

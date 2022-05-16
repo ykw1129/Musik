@@ -1,8 +1,8 @@
 /*
  * @Author: Killian killian@8bsolutions.cn
  * @Date: 2022-05-10 08:28:14
- * @LastEditors: ykw 1794093413@qq.com
- * @LastEditTime: 2022-05-11 18:42:35
+ * @LastEditors: Killian killian@8bsolutions.cn
+ * @LastEditTime: 2022-05-16 10:44:05
  * @FilePath: \musik\src\api\resource\get.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -108,8 +108,8 @@ export const getAllSongFormPlayList = ({id,limit=20,offset=0 }:{id:string,limit?
     })
 }
 
-export const getSongUrl = ({id}:{id:string}) =>{
-    return resource<{ id: string}, Song>({
+export const getSongUrl = ({id}:{id:number}) =>{
+    return resource<{ id: number}, Song>({
         url: '/song/url',
         method: 'GET',
         data: {

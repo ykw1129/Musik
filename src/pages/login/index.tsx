@@ -1,11 +1,7 @@
 import { Button, TextField, ThemeProvider } from '@mui/material'
-import React, { FormEvent } from 'react'
 import { theme } from '../../theme'
-import { useContext } from 'react';
-import { Store } from '../../context/auth-context';
 import { Link, useNavigate } from 'react-router-dom';
 import { Login } from '../../api/server/user';
-import { useMount } from '../../hooks/index';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { localSet } from '../../utils/localStorage';
@@ -16,6 +12,7 @@ const Index = () => {
     Login(data).then(res => {
       if (res.code === 0) {
         localSet('token',res.data.token)
+        localSet('nickName',res.data.nickName)
         navigate('/')
         toast.success(res?.msg || '登录成功')
       } else {

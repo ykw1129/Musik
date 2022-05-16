@@ -243,22 +243,9 @@ export type TracksType = {
 
 }
 export type Song = {
-    id: number,
-    url: string,
-    br: number,
-    size: number,
-    md5: string,
-    code: number,
-    expi: number,
-    type: string,
-    gain: number,
-    fee: number,
-    uf: string,
-    payed: number,
-    flag: number,
-    canExtend: boolean,
-    freeTrialInfo: any,
-    level: string,
-    encodeType: string,
+    id: number
+    url: string
     urlSource: number
+    ar: ArType[]
+    al: AlType|undefined
 }
