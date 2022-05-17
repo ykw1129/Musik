@@ -32,6 +32,9 @@ module.exports = {
             boxShadow: {
                 login: '0 6px 17px 0 rgba(0,0,0,.1);',
             },
+            backgroundImage: {
+                'user-background': "url('./assets/images/background.jpg')",
+            },
         },
     },
     plugins: [require('@tailwindcss/line-clamp')],

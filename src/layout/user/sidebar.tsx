@@ -19,7 +19,7 @@ const links: NavLinkType[] = [
     path: '/',
     ActiveIcon: (<HomeIcon sx={ICON_STYLE} className='text-active' />),
     NavIcon: (<HomeOutlinedIcon sx={ICON_STYLE} className='text-[#999]' />),
-    name:'主页'
+    name: '主页'
   },
   {
     path: '/category',
@@ -40,8 +40,16 @@ const links: NavLinkType[] = [
     name: '专题'
   }
 ]
+const LoginAvatar: () => JSX.Element = () => {
+  let isLogin = localGet('token')
+  if (isLogin) {
+    return <NavLink to="/account" className='text-[#999] text-base max-w-xs  ml-1 flex items-center'>  <AccountCircleIcon sx={ICON_STYLE} className='text-[#999]' /> {localGet('nickName')}</NavLink>
+  } else {
+    return <NavLink to="/login" className='text-[#999] text-base max-w-xs  ml-1 flex items-center'> <AccountCircleIcon sx={ICON_STYLE} className='text-[#999]' /> To Login</NavLink>
+  }
+}
 const Sidebar = () => {
-  const isLogin = ()=> localGet('token')
+
   return (
     <header className='w-80 bg-black min-h-screen flex-shrink-0'>
       <div className='flex items-center justify-between px-8 py-2'>
@@ -51,10 +59,7 @@ const Sidebar = () => {
       <section className='px-8 py-2'>
         <div id='user-info' className='border-y border-[hsla(0,0%,84.7%,.13)]'>
           <div className='flex items-center cursor-pointer px-2 py-4'>
-            <NavLink to="/login">
-              <AccountCircleIcon sx={ICON_STYLE} className='text-[#999]' />
-              <span className='text-[#999] text-base max-w-xs  ml-1'>{isLogin()?localGet('nickName'):'User'}</span>
-            </NavLink>
+            <LoginAvatar />
           </div>
         </div>
         <div id='user-menu' className='mt-10'>
@@ -70,13 +75,13 @@ type NavLinkType = {
   path: string
   ActiveIcon: JSX.Element
   NavIcon: JSX.Element
-  name:string
+  name: string
 }
 
 const Nav = ({ navList }: { navList: NavLinkType[] }) => {
   return (
     <ul>
-      {navList.map(({path,ActiveIcon,NavIcon,name}: NavLinkType) => {
+      {navList.map(({ path, ActiveIcon, NavIcon, name }: NavLinkType) => {
         return <li className='px-2 py-3' key={path}>
           <NavLink to={`${path}`}>
             {({ isActive }: { isActive: boolean }) => (<ActiveNav icon={NavIcon} activeIcon={ActiveIcon} name={name} isActive={isActive} />)}
@@ -87,9 +92,9 @@ const Nav = ({ navList }: { navList: NavLinkType[] }) => {
   )
 }
 
-const ActiveNav = ({ icon, activeIcon, isActive,name }: { icon: JSX.Element, activeIcon: JSX.Element, name: string, isActive:boolean}) =>{
+const ActiveNav = ({ icon, activeIcon, isActive, name }: { icon: JSX.Element, activeIcon: JSX.Element, name: string, isActive: boolean }) => {
   return <>
-      {isActive?activeIcon:icon}
-    <span className={`text-base max-w-xs ml-1 align-bottom ${isActive ? 'text-active' :'text-[#999]'}`}>{name}</span>
+    {isActive ? activeIcon : icon}
+    <span className={`text-base max-w-xs ml-1 align-bottom ${isActive ? 'text-active' : 'text-[#999]'}`}>{name}</span>
   </>
 }
