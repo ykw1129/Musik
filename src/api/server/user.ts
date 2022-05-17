@@ -20,6 +20,13 @@ export const Register = (data: RegisterRequest<string>) => {
         data,
     })
 }
+export const getUserInfo = (data:{id:string}) => {
+    return request<{ id:string }, BaseResponse>({
+        url: '/user/show',
+        method: 'GET',
+        data,
+    })
+}
 export const AdminLogin = () =>{
 
 }

@@ -13,6 +13,7 @@ const Index = () => {
       if (res.code === 0) {
         localSet('token',res.data.token)
         localSet('nickName',res.data.nickName)
+        // localSet()
         navigate('/')
         toast.success(res?.msg || '登录成功')
       } else {
