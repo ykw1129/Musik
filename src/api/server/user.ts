@@ -32,8 +32,8 @@ export const getUserInfo = (data:{id:string}) => {
     })
 }
 // 获取所有收藏
-export const getAllCollection = (data:{email:string,page:number,pageSize:number}) =>{
-    return request<{ email: string, page: number, pageSize: number}, BaseResponse>({
+export const getAllCollection = (data:{email:string,page?:number,pageSize?:number}) =>{
+    return request<{ email: string, page?: number, pageSize?: number}, BaseResponse>({
         url: '/collection/index',
         method: 'GET',
         data,

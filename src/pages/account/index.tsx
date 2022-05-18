@@ -30,7 +30,7 @@ const Index = () => {
   };
   return (
     <div className='w-full flex flex-col'>
-      <header className='w-full h-96 bg-user-background bg-cover bg-center flex flex-col justify-center items-center'>
+      <header className='w-full h-[500px] bg-user-background bg-cover bg-center flex flex-col justify-center items-center'>
         <div className='w-40 h-40 rounded-full overflow-hidden mb-5'>
           <img className='w-full h-full' src={avatar} alt='alt' />
         </div>

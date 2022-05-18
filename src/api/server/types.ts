@@ -26,3 +26,11 @@ export type User = {
     registerTime: string
     updateTime: string
 }
+export type Collection = {
+    createTime: number
+    email: string
+    mediaId: string
+    uid: string
+    updateTime: number
+    _id: string
+}

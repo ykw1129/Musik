@@ -129,3 +129,25 @@ export const getSongLyrics = ({id}:{id:number}) =>{
         }
     })
 }
+export const getSongDetail = ({id}:{id:number|number[]}) =>{
+    const isArray = Array.isArray(id)
+    if(isArray){
+        const ids = id.join(',')
+        return resource<{ ids: string }, Song>({
+            url: '/song/detail',
+            method: 'GET',
+            data: {
+                ids,
+            }
+        })
+    }else{
+        return resource<{ id: number }, Song>({
+            url: '/song/detail',
+            method: 'GET',
+            data: {
+                id,
+            }
+        })
+    }
+
+}
