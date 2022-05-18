@@ -31,6 +31,17 @@ const Player = () => {
       setText(currentLine.txt)
     }
   }
+  const songInfo = <div className='flex h-20 relative items-center px-[15px]  w-full'>
+    <div className='flex items-center'>
+      <div className='w-10 h-10 bg-gray mr-3'>
+        <img className='block w-full h-full' src={currentSong?.al?.picUrl} alt={currentSong?.al?.name} />
+      </div>
+      <span className='text-seconds font-thin '>{currentSong?.al?.name}</span>
+      <span className='text-seconds text-xl mx-2'>-</span>
+      <span className='text-seconds align-bottom inline-block'>{currentSong?.ar.map((item) => item.name).join('/')}</span>
+    </div>
+    <span className='text-gray-light block absolute left-1/2 -translate-x-1/2 text-lg'>{text}</span>
+  </div>
 
   useEffect(() => {
     currentLyric = new Lyric(currentSong?.lyric || '', handleLyric)
@@ -39,17 +50,7 @@ const Player = () => {
   return (
     <div className='fixed bottom-0 left-0 right-0 w-full z-10 bg-dark'>
       <div className='relative'>
-        <div className='flex h-20 relative items-center px-[15px]  w-full'>
-          <div className='flex items-center'>
-            <div className='w-10 h-10 bg-gray mr-3'>
-              <img className='block w-full h-full' src={currentSong?.al?.picUrl} alt={currentSong?.al?.name} />
-            </div>
-            <span className='text-seconds font-thin '>{currentSong?.al?.name}</span>
-            <span className='text-seconds text-xl mx-2'>-</span>
-            <span className='text-seconds align-bottom inline-block'>{currentSong?.ar.map((item) => item.name).join('/')}</span>
-          </div>
-          <span className='text-gray-light block absolute left-1/2 -translate-x-1/2 text-lg'>{text}</span>
-        </div>
+        {value?.state.currentSong?.url ? songInfo : ''}
         <div className='flex h-20 items-center'>
           <AudioPlayer
             onListen={handleListen}

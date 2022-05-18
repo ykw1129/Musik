@@ -43,7 +43,8 @@ const links: NavLinkType[] = [
 const LoginAvatar: () => JSX.Element = () => {
   let isLogin = localGet('token')
   if (isLogin) {
-    return <NavLink to="/account" className='text-[#999] text-base max-w-xs  ml-1 flex items-center'>  <AccountCircleIcon sx={ICON_STYLE} className='text-[#999]' /> {localGet('nickName')}</NavLink>
+    return <NavLink to="/account" className={`${({ isActive }: { isActive: boolean }) => isActive ? 'text-active' : 'text-[#999]'
+      }} text-[#999] text-base max-w-xs  ml-1 flex items-center`}>  <AccountCircleIcon sx={ICON_STYLE} className='text-[#999]' /> {localGet('nickName')}</NavLink>
   } else {
     return <NavLink to="/login" className='text-[#999] text-base max-w-xs  ml-1 flex items-center'> <AccountCircleIcon sx={ICON_STYLE} className='text-[#999]' /> To Login</NavLink>
   }

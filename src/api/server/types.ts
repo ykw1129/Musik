@@ -17,10 +17,12 @@ export type User = {
     status: number
     fileIds: string[]
     friendsIds: string[]
-    collections: string[]
+    collections: number[]
     dynamics: string[]
     playlists: string[]
     _id: string
     email: string
     nickName: string
+    registerTime: string
+    updateTime: string
 }

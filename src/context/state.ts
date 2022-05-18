@@ -12,14 +12,3 @@ export const player: Player = {
     currentIndex: 0,
     status: 'pause'
 }
-export const userInfo:User = {
-    status: 1,
-    fileIds: [],
-    friendsIds: [],
-    collections: [],
-    dynamics: [],
-    playlists: [],
-    _id: '',
-    email: '',
-    nickName: '',
-}
