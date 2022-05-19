@@ -68,7 +68,7 @@ const LoggedRoute = () => (
   <>
     <div className='flex flex-row'>
       <Sidebar />
-      <main className='flex-col flex flex-1 justify-center items-center min-h-screen bg-background'>
+      <main className='flex-col flex flex-1 justify-center items-center min-h-screen bg-background pb-40'>
         <Suspense fallback={<Loading />}>
           <Outlet />
         </Suspense>

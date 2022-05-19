@@ -28,7 +28,7 @@ const Index = () => {
           <img className='w-full h-full' src={avatar} alt='alt' />
         </div>
         <h1 className='text-3xl text-gray-light mb-2'>{value?.userInfo?.nickName}</h1>
-        <p className='text-gray-light mb-2'><span>注册时间：</span><span>{ dayjs(value?.userInfo?.registerTime).format('YYYY-MM-DD hh:mm:ss')}</span></p>
+        <p className='text-gray-light mb-2'><span>注册时间：</span><span>{dayjs(value?.userInfo?.registerTime).format('YYYY-MM-DD hh:mm:ss')}</span></p>
         <p className='text-gray-light mb-2'><span>最后一次更新：</span><span>{dayjs(value?.userInfo?.updateTime).format('YYYY-MM-DD hh:mm:ss')}</span></p>
       </header>
       <div>
@@ -41,13 +41,13 @@ const Index = () => {
                 <Tab label="我的动态" icon={< LocalActivityOutlinedIcon />} iconPosition="start" value="3" />
               </TabList>
             </Box>
-            <TabPanel value="1">
+            <TabPanel sx={{ padding: 0 }} value="1">
               <SongList />
             </TabPanel>
-            <TabPanel value="2">
+            <TabPanel sx={{ padding: 0 }} value="2">
               <PlayList />
             </TabPanel>
-            <TabPanel value="3">
+            <TabPanel sx={{ padding: 0 }} value="3">
               <DynamicList />
             </TabPanel>
           </TabContext>
