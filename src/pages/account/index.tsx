@@ -10,21 +10,14 @@ import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined';
 import SongList from './song/list'
-import PlayList from './song/list'
-import DynamicList from './song/list'
+import PlayList from './playlist/list'
+import DynamicList from './dynamic/list'
 
 import { Box, Tab } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 const Index = () => {
   const value = useContext(Store)
   const [tabs, setTabs] = React.useState('1');
-  useEffect(() => {
-    const fetchData = () =>{
-        getUserInfo({id:localGet('id')})
-        .then(data=>value?.setUserInfo(data.data[0]))
-    }
-    fetchData()
-  }, [])
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setTabs(newValue);
   };

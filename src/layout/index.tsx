@@ -5,6 +5,9 @@ import { Route, Routes, Outlet } from 'react-router-dom';
 import Loading from '../components/loading';
 import Footer from './footer'
 import Player from '../components/player';
+import { localGet } from '../utils/localStorage';
+import { useContext, useEffect } from 'react';
+import { Store } from '../context/auth-context';
 const Home = lazy(() => import('../pages/home'));
 const Category = lazy(() => import('../pages/category'));
 const Star = lazy(() => import('../pages/star'));
@@ -20,26 +23,34 @@ const DynamicManage = lazy(() => import('../pages/admin/dynamic-manage'))
 const FileManage = lazy(() => import('../pages/admin/file-manage'))
 const CommentManage = lazy(() => import('../pages/admin/comment-manage'))
 const Account = lazy(() => import('../pages/account'))
+
 const User = () => {
+  const value = useContext(Store)
+  useEffect(() => {
+
+  }, [value])
+
   return (
     <>
       <Routes>
-        <Route path='/' element ={<AdminNoLoggedRoute />} >
+        {localGet('token')}
+        <Route path='/' element={<AdminNoLoggedRoute />} >
           <Route path='admin' element={<Admin />} />
         </Route>
-        <Route path='/' element={<AdminLoggedRoute />} >
+        {value?.userInfo ? <Route path='/' element={<AdminLoggedRoute />} >
           <Route path='user' element={<UserManage />} />
           <Route path='file' element={<FileManage />} />
           <Route path='dynamic' element={<DynamicManage />} />
           <Route path='comment' element={<CommentManage />} />
-        </Route>
-        <Route path='/' element ={<NoLoggedRoute />} >
+        </Route> : ''}
+
+        <Route path='/' element={<NoLoggedRoute />} >
           <Route path='register' element={<UserRegsiter />} />
           <Route path='login' element={<UserLogin />} />
         </Route>
         <Route path='/' element={<LoggedRoute />} >
           <Route index element={<Home />} />
-          <Route path='/account' element={<Account />} />
+          {value?.userInfo ? <Route path='/account' element={<Account />} /> : ''}
           <Route path='/category'>
             <Route index element={<Category />} />
             <Route path='playlist/:name' element={< PlayList />} />
@@ -67,7 +78,7 @@ const LoggedRoute = () => (
     </div>
   </>
 )
-const NoLoggedRoute = () =>(
+const NoLoggedRoute = () => (
   <>
     <div className='flex flex-col min-h-screen'>
       <main className='flex-1 flex bg-gradient-to-t from-[#fff1eb] to-[#ace0f9]'>
@@ -79,7 +90,7 @@ const NoLoggedRoute = () =>(
     </div>
   </>
 )
-const AdminLoggedRoute = () =>(
+const AdminLoggedRoute = () => (
   <>
     <div className='flex flex-row'>
       <AdminSidebar />

@@ -1,11 +1,14 @@
 import { Button, TextField, ThemeProvider } from '@mui/material'
 import { theme } from '../../theme'
 import { Link, useNavigate } from 'react-router-dom';
-import { Login } from '../../api/server/user';
+import { getUserInfo, Login } from '../../api/server/user';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { localSet } from '../../utils/localStorage';
+import { useContext } from 'react';
+import { Store } from '../../context/auth-context';
 const Index = () => {
+  const value = useContext(Store)
   const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm();
   const onSubmit = (data: any) => {
@@ -13,13 +16,13 @@ const Index = () => {
       if (res.code === 0) {
         localSet('token',res.data.token)
         localSet('nickName',res.data.nickName)
-        localSet('id',res.data.id)
-        navigate('/')
+        navigate(-1)
         toast.success(res?.msg || '登录成功')
+        return getUserInfo({ id: res.data.id })
       } else {
         toast.error(res?.msg || '登录失败')
       }
-    })
+    }).then(data => value?.setUserInfo(data?.data[0]))
   }
   const rules = {
     email: register('email', { required: "邮箱是必填的", maxLength: { value: 30, message: '邮箱不能超过30个字符' } }),

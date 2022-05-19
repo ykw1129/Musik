@@ -8,9 +8,10 @@ import GradeIcon from '@mui/icons-material/Grade';
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined';
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom';
 import { localGet } from '../../utils/localStorage';
+import { Store } from '../../context/auth-context';
 const ICON_STYLE = {
   fontSize: 24, marginRight: '10px'
 }
@@ -40,14 +41,18 @@ const links: NavLinkType[] = [
     name: '专题'
   }
 ]
-const LoginAvatar: () => JSX.Element = () => {
-  let isLogin = localGet('token')
-  return <NavLink to={isLogin?'/account':'/login'} className={({ isActive }) => isActive ? 'text-active text-base max-w-xs  ml-1 flex items-center' : 'text-[#999] text-base max-w-xs  ml-1 flex items-center'}>
-    {({ isActive }) => (<><AccountCircleIcon sx={ICON_STYLE} className={isActive ? 'text-active' : 'text-[#999]'} />{isLogin ? localGet('nickName') : '登录'}</>)}
-  </NavLink>
-}
-const Sidebar = () => {
 
+const Sidebar = () => {
+  const value = useContext(Store)
+  const logout = () => {
+    value?.setUserInfo(undefined)
+    localStorage.clear()
+  }
+  const LoginAvatar: () => JSX.Element = () => {
+    return <NavLink to={value?.userInfo ? '/account' : '/login'} className={({ isActive }) => isActive ? 'text-active text-base max-w-xs  ml-1 flex items-center' : 'text-[#999] text-base max-w-xs  ml-1 flex items-center'}>
+      {({ isActive }) => (<><AccountCircleIcon sx={ICON_STYLE} className={isActive ? 'text-active' : 'text-[#999]'} />{value?.userInfo?value.userInfo.nickName : '登录'}</>)}
+    </NavLink>
+  }
   return (
     <header className='w-80 bg-black min-h-screen flex-shrink-0'>
       <div className='flex items-center justify-between px-8 py-2'>
@@ -56,8 +61,9 @@ const Sidebar = () => {
       </div>
       <section className='px-8 py-2'>
         <div id='user-info' className='border-y border-[hsla(0,0%,84.7%,.13)]'>
-          <div className='flex items-center cursor-pointer px-2 py-4'>
+          <div className='flex items-center cursor-pointer px-2 py-4 justify-between'>
             <LoginAvatar />
+            {value?.userInfo ? <span className='text-[#999] hover:text-active' onClick={logout}>登出</span> : ''}
           </div>
         </div>
         <div id='user-menu' className='mt-10'>
