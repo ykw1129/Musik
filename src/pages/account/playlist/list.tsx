@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { getPlaylist } from '../../../api/server/user';
 
 type Props = {}
 
-const list = (props: Props) => {
+const List = (props: Props) => {
+  useEffect(() => {
+      getPlaylist({}).then(data=>console.log(data))
+  }, [])
   return (
-    <div>list</div>
+    <div className='w-full p-5'>
+      <ul>
+        <li></li>
+      </ul>
+    </div>
   )
 }
 
-export default list
+export default List

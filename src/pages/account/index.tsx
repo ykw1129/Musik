@@ -29,7 +29,11 @@ const Index = () => {
         </div>
         <h1 className='text-3xl text-gray-light mb-2'>{value?.userInfo?.nickName}</h1>
         <p className='text-gray-light mb-2'><span>注册时间：</span><span>{dayjs(value?.userInfo?.registerTime).format('YYYY-MM-DD hh:mm:ss')}</span></p>
-        <p className='text-gray-light mb-2'><span>最后一次更新：</span><span>{dayjs(value?.userInfo?.updateTime).format('YYYY-MM-DD hh:mm:ss')}</span></p>
+        <p className='w-[480px] mx-auto flex'>
+          <span className='flex-1 text-center text-gray-light border-r border-gray-light px-5'>喜欢的歌:<b className='ml-2'>{value?.userInfo?.collections.length || 0}</b></span>
+          <span className='flex-1 text-center text-gray-light border-r border-gray-light px-5'>收藏的歌单:<b className='ml-2'>{value?.userInfo?.playlists.length || 0}</b></span>
+          <span className='flex-1 text-center text-gray-light border-gray-light px-5'>动态:<b className='ml-2'>{value?.userInfo?.dynamics.length || 0}</b></span>
+        </p>
       </header>
       <div>
         <Box sx={{ width: '100%', typography: 'body1' }}>

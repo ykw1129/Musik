@@ -48,8 +48,8 @@ export const addCollection = (data: { uid: string, mediaId:number})=>{
     })
 }
 // 获取所有歌单
-export const getPlaylist = (data:{page:number,pageSize:number,playlistTitle:string}) =>{
-    return request<{ page: number, pageSize: number, playlistTitle: string }, BaseResponse>({
+export const getPlaylist = (data:{page?:number,pageSize?:number,playlistTitle?:string}) =>{
+    return request<{ page?: number, pageSize?: number, playlistTitle?: string }, BaseResponse>({
         url: '/playlist/index',
         method: 'GET',
         data,

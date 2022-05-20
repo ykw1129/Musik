@@ -8,7 +8,6 @@ import { Song, TracksType, ArType } from '../../../api/resource/types';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { Button } from '@mui/material';
 
 
 const List = () => {
@@ -17,15 +16,15 @@ const List = () => {
   const [songs, setSongs] = useState<TracksType[] | null>()
   const columns: GridColDef[] = [
     { field: 'img', headerName: '封面', renderCell: (params) => <div className='w-10 h-10'><img className='block w-full h-full' src={params.row.al.picUrl} alt={params.row.al.name} /></div> },
-    { field: 'name', headerName: '歌名', width: 400 },
+    { field: 'name', headerName: '歌名', width: 480 },
     { field: 'singer', headerName: '歌手', width: 300, valueGetter: (params) => params.row.ar.map((item: ArType) => item.name).join('/') },
-    { field: 'album', headerName: '专辑', width: 150, valueGetter: (params) => params.row.al.name },
+    { field: 'album', headerName: '专辑', width: 300, valueGetter: (params) => params.row.al.name },
     {
-      field: 'operate', headerName: '操作', width: 500, renderCell: (params) => {
+      field: 'operate', headerName: '操作', width: 400, renderCell: (params) => {
         return <div className='flex items-center'>
-                 <PlayCircleOutlineIcon fontSize='large' onClick={onPlayer(params.row.id)} className='hover:text-active cursor-pointer ml-auto my-auto mr-5' />
+          <PlayCircleOutlineIcon fontSize='large' onClick={onPlayer(params.row.id)} className='hover:text-active cursor-pointer ml-auto my-auto mr-5' />
           <HighlightOffIcon fontSize='large' className='hover:text-active cursor-pointer  ml-auto my-auto mr-5' />
-              </div>
+        </div>
       }
     }
   ]
