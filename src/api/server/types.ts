@@ -41,6 +41,7 @@ export type PlaylistCollection = {
     createTime: number
     introduction: string
     like: number
+    listId: string
     playlistTitle:string
     updateTime: number
     views: number

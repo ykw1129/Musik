@@ -14,15 +14,14 @@ const Index = () => {
   const onSubmit = (data: any) => {
     Login(data).then(res => {
       if (res.code === 0) {
-        localSet('token',res.data.token)
-        localSet('nickName',res.data.nickName)
+        localSet('user_id',res.data.id)
         navigate(-1)
         toast.success(res?.msg || '登录成功')
-        return getUserInfo({ id: res.data.id })
+        value?.setUserInfo()
       } else {
         toast.error(res?.msg || '登录失败')
       }
-    }).then(data => value?.setUserInfo(data?.data[0]))
+    })
   }
   const rules = {
     email: register('email', { required: "邮箱是必填的", maxLength: { value: 30, message: '邮箱不能超过30个字符' } }),

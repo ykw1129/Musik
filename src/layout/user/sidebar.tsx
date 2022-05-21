@@ -29,24 +29,23 @@ const links: NavLinkType[] = [
     name: '分类'
   },
   {
-    path: '/star',
+    path: '/account',
     ActiveIcon: (<GradeIcon sx={ICON_STYLE} className='text-active' />),
     NavIcon: (<GradeOutlinedIcon sx={ICON_STYLE} className='text-[#999]' />),
-    name: '收藏'
-  },
-  {
+    name: '个人'
+  }
+/*   {
     path: '/activity',
     ActiveIcon: (<LocalActivityIcon sx={ICON_STYLE} className='text-active' />),
     NavIcon: (<LocalActivityOutlinedIcon sx={ICON_STYLE} className='text-[#999]' />),
     name: '专题'
-  }
+  } */
 ]
 
 const Sidebar = () => {
   const value = useContext(Store)
   const logout = () => {
-    value?.setUserInfo(undefined)
-    localStorage.clear()
+    value?.userLogout()
   }
   const LoginAvatar: () => JSX.Element = () => {
     return <NavLink to={value?.userInfo ? '/account' : '/login'} className={({ isActive }) => isActive ? 'text-active text-base max-w-xs  ml-1 flex items-center' : 'text-[#999] text-base max-w-xs  ml-1 flex items-center'}>

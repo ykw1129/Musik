@@ -1,29 +1,38 @@
 import React, { useEffect, useState } from 'react'
 import { getPlaylistDetail } from '../../api/resource/get';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useAuth } from '../../hooks/useAuth';
 import { PlayListType, TracksType } from '../../api/resource/types';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import ShareIcon from '@mui/icons-material/Share';
 import dayjs from 'dayjs';
 import List from './list';
-import { savePlaylist } from '../../api/server/user';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useContext } from 'react';
+import { Store } from '../../context/auth-context';
+import { getPlaylist, saveWyyPlaylist, getIsStar } from '../../api/server/user';
+import { toast } from 'react-toastify';
+import StarIcon from '@mui/icons-material/Star';
 
 
 
 function SongList() {
-  const navigate =  useNavigate()
+  const value = useContext(Store)
+  const navigate = useNavigate()
+  const [star,setStar] = useState(false)
   const [songs, setSongs] = useState<TracksType[] | null>()
   const [playlist, setPlaylist] = useState<PlayListType | null>()
   const { id } = useParams()
   const fetch = () => {
     if (id) {
+
       getPlaylistDetail({ id }).then(data => {
         if (data.code === 200) {
           setPlaylist(data.playlist)
           setSongs(data.playlist.tracks)
+          getIsStar({ uId: value?.userInfo?._id||'', listId:data.playlist.id}).then(data=>
+            setStar(data.data.isStar)
+            )
         } else {
           toast.error('获取歌曲列表失败')
         }
@@ -33,24 +42,30 @@ function SongList() {
   }
   useAuth(fetch)
   const onStarPlaylist = () => {
-    savePlaylist({ wid: playlist?.id || 0, playlistTitle: playlist?.name || '', introduction: playlist?.description || '', cover: playlist?.coverImgUrl || '' }).then(data => {
-      if (data.code === 0) {
-        toast.success('收藏成功')
-      } else {
-        toast.error('收藏失败')
-      }
-    })
+    if (value?.userInfo?._id && playlist?.id) {
+      saveWyyPlaylist({ uId: value?.userInfo?._id, listId: playlist?.id }).then(data => {
+        if (data.code === 0) {
+          toast.success('收藏成功')
+          value.setUserInfo()
+        } else {
+          toast.error('收藏失败')
+        }
+      })
+    } else {
+      toast.warn('请先登录！')
+    }
   }
   return (
     <section className='w-full'>
       <div className='bg-banner flex-1 py-10'>
         <div className='lg:w-[964px] m-auto '>
           <header className='flex backdrop-blur-0 bg-banner'>
-            <ArrowBackIosIcon fontSize='large' className='hover:text-active cursor-pointer' onClick={()=>navigate(-1)} />
+            <ArrowBackIosIcon fontSize='large' className='hover:text-active cursor-pointer' onClick={() => navigate(-1)} />
             <div className='cursor-pointer w-96 h-94 bg-gray relative group shadow mr-5 overflow-hidden'>
               <img className='h-full block' src={playlist?.coverImgUrl} alt={playlist?.name} />
               <div className='z-10 h-20 w-full absolute -bottom-20 backdrop-blur-sm left-0 right-0 group-hover:bottom-0 transition-[bottom] duration-200 flex items-center justify-evenly'>
-                <StarBorderIcon onClick={onStarPlaylist} className='hover:text-active' fontSize='large' titleAccess='收藏' />
+                {star ? <StarIcon onClick={onStarPlaylist} className='hover:text-active' fontSize='large' titleAccess='收藏' /> : <StarBorderIcon onClick={onStarPlaylist} className='hover:text-active' fontSize='large' titleAccess='收藏' />}
+
                 <ShareIcon className='hover:text-active' fontSize='large' titleAccess='分享' />
               </div>
             </div>
@@ -73,8 +88,8 @@ function SongList() {
                     playlist?.tags.map((tag, index) =>
                       <li className='inline-block   leading-8 mr-3' key={index}>
                         <Link className='w-full border-gray-light px-5 h-8  border  hover:bg-active hover:text-[#fff] block rounded-2xl' to={`/category/playlist/${tag}`}>
-                            {tag}
-                          </Link>
+                          {tag}
+                        </Link>
                       </li>
                     )
                   }

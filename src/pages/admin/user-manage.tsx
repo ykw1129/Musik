@@ -141,7 +141,7 @@ const UserDialog = ({ open, close, id }: { open: boolean, close: () => void, id:
               <RadioGroup
                 row
                 {...rules.nickName}
-                aria-labelledby="demo-row-radio-buttons-group-label"
+                aria-labelledby="demo-row-radio-buttons-grou  p-label"
                 defaultValue={data?.status}
                 name="radio-buttons-group"
               >

@@ -42,8 +42,8 @@ const Index = () => {
               <TabList onChange={handleChange} aria-label="lab API tabs example">
                 <Tab label="喜欢的歌" icon={<GradeOutlinedIcon />} iconPosition="start" value="1" />
                 <Tab label="收藏的歌单" icon={<LibraryMusicIcon />} iconPosition="start" value="2" />
-                <Tab label="我的的歌单" icon={<LibraryMusicIcon />} iconPosition="start" value="3" />
-                <Tab label="我的动态" icon={< LocalActivityOutlinedIcon />} iconPosition="start" value="4" />
+{/*                 <Tab label="我的的歌单" icon={<LibraryMusicIcon />} iconPosition="start" value="3" />
+                <Tab label="我的动态" icon={< LocalActivityOutlinedIcon />} iconPosition="start" value="4" /> */}
               </TabList>
             </Box>
             <TabPanel sx={{ padding: 0 }} value="1">
@@ -52,12 +52,12 @@ const Index = () => {
             <TabPanel sx={{ padding: 0 }} value="2">
               <PlayList />
             </TabPanel>
-            <TabPanel sx={{ padding: 0 }} value="3">
+{/*             <TabPanel sx={{ padding: 0 }} value="3">
               <DynamicList />
             </TabPanel>
             <TabPanel sx={{ padding: 0 }} value="4">
               <DynamicList />
-            </TabPanel>
+            </TabPanel> */}
           </TabContext>
         </Box>
       </div>

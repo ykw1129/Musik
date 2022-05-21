@@ -16,7 +16,8 @@ export const defaultLogin = () => {
     return resource<LoginFormType, AuthResponse>({
         url: '/login/cellphone',
         method: 'POST',
-        data: { phone: '18728147847', password: 'guojian.' },
+        data: {
+            phone: '15729726776', password: '15729726776siyu' },
         withCredentials: true
     })
 }
