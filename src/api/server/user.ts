@@ -47,6 +47,14 @@ export const addCollection = (data: { uid: string, mediaId:number})=>{
         data,
     })
 }
+// 删除收藏
+export const removeCollection = (data: {id:string})=>{
+    return request<{ id: string }, BaseResponse>({
+        url: '/collection/destroy',
+        method: 'GET',
+        data,
+    })
+}
 // 获取所有歌单
 export const getPlaylist = (data:{page?:number,pageSize?:number,playlistTitle?:string}) =>{
     return request<{ page?: number, pageSize?: number, playlistTitle?: string }, BaseResponse>({

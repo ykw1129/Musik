@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { localSet } from '../../utils/localStorage';
 import { DataGrid } from '@mui/x-data-grid';
+import { AdminLogin } from '../../api/server/admin';
 export const StyledDataGrid = styled(DataGrid)`
   &.MuiDataGrid-root .MuiDataGrid-columnHeader:focus,
   &.MuiDataGrid-root .MuiDataGrid-cell:focus {
@@ -17,13 +18,14 @@ export const StyledDataGrid = styled(DataGrid)`
   }
 `;
 const Index = () => {
+  const value = useContext(Store)
   const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm();
   const onSubmit = (data: any) => {
-    Login(data).then(res => {
+    AdminLogin(data).then(res => {
       if (res.code === 0) {
-        localSet('token', res.data.token)
-        navigate('/')
+        value?.setIsAdmin(true)
+        navigate('/user')
         toast.success(res?.msg || '登录成功')
       } else {
         toast.error(res?.msg || '登录失败')
@@ -31,8 +33,8 @@ const Index = () => {
     })
   }
   const rules = {
-    email: register('email', { required: "邮箱是必填的", maxLength: { value: 30, message: '邮箱不能超过30个字符' } }),
-    password: register('password', { required: "密码是必填的", maxLength: { value: 20, message: '密码不能超过20个字符' } }),
+    userName: register('userName', { required: "用户名是必填的", maxLength: { value: 30, message: '邮箱不能超过30个字符' } }),
+    passWord: register('passWord', { required: "密码是必填的", maxLength: { value: 20, message: '密码不能超过20个字符' } }),
   }
   return (
     <>
@@ -42,10 +44,10 @@ const Index = () => {
             <h1 className='text-center text-4xl text-active font-bold'>Musik - Admin</h1>、
             <ThemeProvider theme={theme}>
               <div className='mb-10'>
-                <TextField  {...rules.email} helperText={errors.email?.message} color="secondary" fullWidth label="用户名" placeholder='username' variant="standard" />
+                <TextField  {...rules.userName} helperText={errors.userName?.message} color="secondary" fullWidth label="用户名" placeholder='username' variant="standard" />
               </div>
               <div className='mb-10'>
-                <TextField {...rules.password} helperText={errors.password?.message} color="secondary" type="password" fullWidth label="密码" placeholder='password' variant="standard" />
+                <TextField {...rules.passWord} helperText={errors.passWord?.message} color="secondary" type="password" fullWidth label="密码" placeholder='password' variant="standard" />
               </div>
               <div className='mb-5'>
                 <Button type='submit' className='w-full' color='secondary' variant='outlined'>管理员登录</Button>

@@ -34,3 +34,16 @@ export type Collection = {
     updateTime: number
     _id: string
 }
+export type PlaylistCollection = {
+    collect: number
+    comment: number
+    cover: string
+    createTime: number
+    introduction: string
+    like: number
+    playlistTitle:string
+    updateTime: number
+    views: number
+    wId: number[]
+    _id: string
+}

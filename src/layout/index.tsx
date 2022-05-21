@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react'
 import Sidebar from './user/sidebar'
 import AdminSidebar from './admin/sidebar';
-import { Route, Routes, Outlet } from 'react-router-dom';
+import { Route, Routes, Outlet, Navigate } from 'react-router-dom';
 import Loading from '../components/loading';
 import Footer from './footer'
 import Player from '../components/player';
@@ -33,11 +33,10 @@ const User = () => {
   return (
     <>
       <Routes>
-        {localGet('token')}
         <Route path='/' element={<AdminNoLoggedRoute />} >
-          <Route path='admin' element={<Admin />} />
+          <Route path='admin' element={value?.isAdmin ? <Navigate to="/user" replace /> : <Admin />} />
         </Route>
-        {value?.userInfo ? <Route path='/' element={<AdminLoggedRoute />} >
+        {value?.isAdmin ? <Route path='/' element={<AdminLoggedRoute />} >
           <Route path='user' element={<UserManage />} />
           <Route path='file' element={<FileManage />} />
           <Route path='dynamic' element={<DynamicManage />} />
