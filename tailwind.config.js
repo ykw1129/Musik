@@ -34,6 +34,7 @@ module.exports = {
             },
             backgroundImage: {
                 'user-background': "url('./assets/images/background.jpg')",
+                404: "url('./assets/images/404.jpg')",
             },
         },
     },

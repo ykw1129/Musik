@@ -4,7 +4,9 @@ type Props = {}
 
 function ErrorPage({}: Props) {
   return (
-    <div>12312312312312312312</div>
+    <div className='bg-404 w-full h-[100vh] bg-no-repeat bg-cover'>
+
+    </div>
   )
 }
 
