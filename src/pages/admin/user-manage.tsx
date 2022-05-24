@@ -12,8 +12,7 @@ import { getUser } from '../../api/server/admin';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { theme } from '../../theme';
-import { getUserInfo } from '../../api/server/user';
-import { pink } from '@mui/material/colors';
+import { getUserInfo, updateUserInfo } from '../../api/server/user';
 
 function UserManage() {
   const [open, setOpen] = useState<boolean>(false)
@@ -66,19 +65,19 @@ function UserManage() {
       setOpen(true)
     }
   }
+  const fetchData = (nickName?: string) => {
+    setLoading(true)
+    getUser({ nickName, pageSize: 10 }).then(data => {
+      if (data.code !== 0) {
+        toast.success('获取用户列表失败')
+      } else {
+        setUsers(data.data.list)
+      }
+      setLoading(false)
+    })
+  }
   useEffect(() => {
-    const fetch = (nickName?: string) => {
-      setLoading(true)
-      getUser({ nickName }).then(data => {
-        if (data.code !== 0) {
-          toast.success('获取用户列表失败')
-        } else {
-          setUsers(data.data.list)
-        }
-        setLoading(false)
-      })
-    }
-    fetch()
+    fetchData()
   }, [])
 
   return (
@@ -90,7 +89,9 @@ function UserManage() {
             loading={loading}
             getRowId={row => row._id}
             autoHeight
+            pageSize={10}
             rows={users || []}
+            rowsPerPageOptions={[10]}
             columns={columns}
             disableSelectionOnClick={true}
           />
@@ -98,7 +99,7 @@ function UserManage() {
         <div className='flex justify-center'>
           <Pagination count={10} />
         </div>
-        <UserDialog id={id} open={open} close={() => setOpen(false)} />
+        <UserDialog fetch={fetchData} id={id} open={open} close={() => setOpen(false)} />
       </div>
     </section>
   )
@@ -106,43 +107,50 @@ function UserManage() {
 
 export default UserManage
 
-const UserDialog = ({ open, close, id }: { open: boolean, close: () => void, id: string }) => {
-  const [data, setData] = useState<User | null>()
-  const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm();
+const UserDialog = ({ open, close, id, fetch }: { open: boolean, close: () => void, id: string, fetch: () => void }) => {
+  const [defaultData, setDefaultData] = useState<User | null>()
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const handleClose = () => {
     close()
   }
-  const onSubmit = () => {
-
+  const onSubmit = (data: any) => {
+    updateUserInfo(data).then(res => {
+      if (res.code === 0) {
+        close()
+        fetch()
+      }
+    })
   }
   const rules = {
     nickName: register('nickName', { required: "用户是必填的", maxLength: { value: 30, message: '邮箱不能超过30个字符' } }),
-    status: register('status', { required: "状态" }),
+    status: register('status', { required: "状态是必填的" }),
+    id: register('id')
   }
   useEffect(() => {
     if (open) {
       getUserInfo({ id }).then((data) => {
-        setData(data.data[0])
+        setDefaultData(data.data[0])
+        setValue('id', id)
       })
     }
-  }, [id, open])
-
+  }, [id, open, setValue])
   return <Dialog open={open} onClose={handleClose}>
-    <DialogTitle>{data?.email}</DialogTitle>
+    <DialogTitle>{defaultData?.email}</DialogTitle>
     <form onSubmit={handleSubmit(onSubmit)}>
       <ThemeProvider theme={theme}>
         <DialogContent>
           <div className='w-[500px]'>
             <div className='mb-10'>
-              <TextField  {...rules.nickName} helperText={errors.nickName?.message} color="secondary" defaultValue={data?.nickName} fullWidth label="用户名" placeholder='E-mail' variant="standard" />
+              <TextField  {...rules.nickName} defaultValue={defaultData?.nickName} helperText={errors.nickName?.message} color="secondary" fullWidth label="用户名" placeholder='E-mail' variant="standard" />
             </div>
             <div className='mb-10'>
+              <input type="hidden" {...rules.id} defaultValue={id} />
               <FormLabel id="demo-row-radio-buttons-group-label">状态</FormLabel>
               <RadioGroup
                 row
-                {...rules.nickName}
+                {...rules.status}
+                defaultValue={defaultData?.status}
                 aria-labelledby="demo-row-radio-buttons-grou  p-label"
-                defaultValue={data?.status}
                 name="radio-buttons-group"
               >
                 <FormControlLabel value={1} control={<Radio sx={{

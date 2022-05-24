@@ -34,7 +34,7 @@ export const getUserInfo = (data: { id: string }) => {
 // 更新用户信息
 export const updateUserInfo = (data: { id: string, nickName: string, status: number }) => {
     return request<{ id: string, nickName: string, status: number }, BaseResponse>({
-        url: '/user/show',
+        url: '/user/update',
         method: 'POST',
         data,
     })
