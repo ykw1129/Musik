@@ -48,3 +48,21 @@ export type PlaylistCollection = {
     wId: number[]
     _id: string
 }
+export type DynamicType = {
+    like: number
+    createTime: number
+    updateTime: number
+    _id: string
+    uid: string
+    content: string
+    email: string
+}
+export type FileType = {
+    createTime: number,
+    type:'music'|'video',
+    _id: string
+    uid: string
+    title: string
+    url: string
+    target: string
+}

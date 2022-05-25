@@ -1,4 +1,4 @@
-import React, { Dispatch, useState } from 'react'
+import React, { ChangeEvent, Dispatch, useRef, useState } from 'react'
 import AdminHeader from '../../components/admin-header'
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
 import dayjs from 'dayjs';
@@ -12,7 +12,7 @@ import { getUser } from '../../api/server/admin';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { theme } from '../../theme';
-import { getUserInfo, updateUserInfo } from '../../api/server/user';
+import { getUserInfo, updateUserInfo, deleteUser } from '../../api/server/user';
 
 function UserManage() {
   const [open, setOpen] = useState<boolean>(false)
@@ -54,7 +54,7 @@ function UserManage() {
       renderCell: (params) =>
         <>
           <Button style={{ marginRight: '10px' }} color='info' variant='outlined' onClick={onEdit(params.row._id)} startIcon={<EditIcon />}>编辑</Button>
-          <Button color='error' variant='outlined' startIcon={<RemoveCircleIcon />}>删除</Button>
+          <Button color='error' variant='outlined' onClick={onDelete(params.row._id)} startIcon={<RemoveCircleIcon />}>删除</Button>
         </>
 
     }
@@ -75,6 +75,18 @@ function UserManage() {
       }
       setLoading(false)
     })
+  }
+  const onDelete = (id: string) => {
+    return () => {
+      deleteUser({ id }).then(data => {
+        if (data.code !== 0) {
+          toast.success('删除成功')
+          fetchData()
+        } else {
+          toast.error('删除失败')
+        }
+      })
+    }
   }
   useEffect(() => {
     fetchData()
@@ -130,7 +142,6 @@ const UserDialog = ({ open, close, id, fetch }: { open: boolean, close: () => vo
     if (open) {
       getUserInfo({ id }).then((data) => {
         setDefaultData(data.data[0])
-        setValue('id', id)
       })
     }
   }, [id, open, setValue])
@@ -141,12 +152,12 @@ const UserDialog = ({ open, close, id, fetch }: { open: boolean, close: () => vo
         <DialogContent>
           <div className='w-[500px]'>
             <div className='mb-10'>
-              <TextField  {...rules.nickName} defaultValue={defaultData?.nickName} helperText={errors.nickName?.message} color="secondary" fullWidth label="用户名" placeholder='E-mail' variant="standard" />
+              {defaultData?.nickName ? <TextField  {...rules.nickName} defaultValue={defaultData?.nickName} helperText={errors.nickName?.message} color="secondary" fullWidth label="用户名" placeholder='E-mail' variant="standard" /> : ''}
             </div>
             <div className='mb-10'>
-              <input type="hidden" {...rules.id} defaultValue={id} />
+              <input type="hidden" {...rules.id} value={id} />
               <FormLabel id="demo-row-radio-buttons-group-label">状态</FormLabel>
-              <RadioGroup
+              {defaultData?.status ? <RadioGroup
                 row
                 {...rules.status}
                 defaultValue={defaultData?.status}
@@ -165,7 +176,7 @@ const UserDialog = ({ open, close, id, fetch }: { open: boolean, close: () => vo
                     color: '#0ad269',
                   },
                 }} />} label="禁用" />
-              </RadioGroup>
+              </RadioGroup> : ''}
             </div>
           </div>
         </DialogContent>

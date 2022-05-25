@@ -142,3 +142,39 @@ export const deleteFocus = (data: { id: string }) => {
         data,
     })
 }
+// 删除用户
+export const deleteUser = (data: { id: string }) => {
+    return request<{ id: string }, BaseResponse>({
+        url: '/user/destroy',
+        method: 'DELETE',
+        data,
+    })
+}
+export const getDynamic = (data:{email?:string,page?: number, pageSize?: number }) => {
+    return request<{ email?:string,page?: number, pageSize?: number }, BaseResponse>({
+        url: '/dynamic/index',
+        method: 'GET',
+        data,
+    })
+}
+export const deleteDynamic = (data:{id:string }) => {
+    return request<{ id:string}, BaseResponse>({
+        url: '/dynamic/destroy',
+        method: 'DELETE',
+        data,
+    })
+}
+export const getFile = (data:{title?:string,page?: number, pageSize?: number }) => {
+    return request<{ title?:string,page?: number, pageSize?: number }, BaseResponse>({
+        url: '/medias/index',
+        method: 'GET',
+        data,
+    })
+}
+export const deleteFile = (data:{id:string }) => {
+    return request<{ id:string}, BaseResponse>({
+        url: '/medias/destroy',
+        method: 'DELETE',
+        data,
+    })
+}
